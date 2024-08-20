@@ -2,6 +2,13 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 
+const connectDB = require('./config/db');
+
+const PORT = process.env.PORT || 8080;
+
+/**
+ * Creating express application
+ */
 const app = express();
 
 app.use(express.json());
@@ -17,6 +24,7 @@ app.get('/', function (request, response, next) {
   if (TODO_LIST.length > 0) {
     response.status(200).json({ list: TODO_LIST });
   } else {
+    ``;
     response
       .status(200)
       .json({ message: 'Todo list is empty.', list: TODO_LIST });
@@ -37,9 +45,20 @@ app.post('/', function (request, response, next) {
   }
 });
 
+/**
+ * Creating express server using http
+ */
 const server = http.createServer(app);
+console.log(server.address);
 
-// server.listen(8080)
-server.listen(8080, () => {
-  console.log('Server is Running');
+/**
+ * Connecting to database
+ */
+connectDB();
+
+/**
+ * Listening to the requests
+ */
+server.listen(PORT, () => {
+  console.log(`Server is Running on port: ${PORT}`);
 });
