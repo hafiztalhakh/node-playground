@@ -1,2 +1,2 @@
-#ignoring node_modules directory
+#preventing node_modules directory to push on Github
 /node_modules
