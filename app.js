@@ -6,12 +6,7 @@ const express = require('express');
 const cors = require('cors');
 
 const connectDB = require('./config/db');
-const {
-  addTodoItem,
-  getTodoList,
-  deleteTodoItem,
-  updateTodoItem,
-} = require('./controllers/todo');
+const { registerUser, loginUser } = require('./controllers/user');
 
 /**
  * Creating express application instance
@@ -22,12 +17,10 @@ app.use(express.json());
 app.use(cors());
 
 /**
- * Routes
+ * Auth Routes
  */
-app.get('/', getTodoList);
-app.post('/', addTodoItem);
-app.put('/:id', updateTodoItem);
-app.delete('/:id', deleteTodoItem);
+app.post('/register-user', registerUser);
+app.post('/login', loginUser);
 
 /**
  * Creating express server using http
