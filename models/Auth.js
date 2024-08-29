@@ -15,6 +15,10 @@ const authSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    resetToken: {
+      type: Number,
+      required: false,
+    },
   },
   { timestamps: true }
 );
