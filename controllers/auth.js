@@ -91,7 +91,7 @@ exports.login = async (req, res, next) => {
     // Comparing the passwords
     const isEqual = await bcrypt.compare(password, auth.password);
     if (!isEqual) {
-      const error = new Error('Invalid Password');
+      const error = new Error('Incorrect Password');
       error.statusCode = 401;
       throw error;
     }
@@ -157,9 +157,13 @@ exports.recoverPassword = async (req, res, next) => {
     return res.status(201).json({
       message: 'Reset Code Has Been Emailed To Your Registered Email Address',
     });
-  } catch (err) {
-    if (!err.statusCode) err.statusCode = 500;
-    next(err);
+  } catch (error) {
+    console.log(error);
+
+    // Returning the response
+    res
+      .status(error?.statusCode || 500)
+      .json({ message: error?.message, data: error?.data });
   }
 };
 
@@ -186,9 +190,13 @@ exports.verifyRecoverCode = async (req, res, next) => {
     }
 
     return res.status(200).json({ message: 'Success' });
-  } catch (err) {
-    if (!err.statusCode) err.statusCode = 500;
-    next(err);
+  } catch (error) {
+    console.log(error);
+
+    // Returning the response
+    res
+      .status(error?.statusCode || 500)
+      .json({ message: error?.message, data: error?.data });
   }
 };
 
@@ -226,8 +234,12 @@ exports.resetPassword = async (req, res, next) => {
     return res.status(201).json({
       message: 'Your Password Has Been Updated',
     });
-  } catch (err) {
-    if (!err.statusCode) err.statusCode = 500;
-    next(err);
+  } catch (error) {
+    console.log(error);
+
+    // Returning the response
+    res
+      .status(error?.statusCode || 500)
+      .json({ message: error?.message, data: error?.data });
   }
 };
