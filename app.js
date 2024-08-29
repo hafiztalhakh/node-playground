@@ -3,25 +3,16 @@
 require('dotenv').config();
 const http = require('http');
 const express = require('express');
-const cors = require('cors');
 
 const connectDB = require('./config/db');
-const authRoutes = require('./routes/auth');
-const userRoutes = require('./routes/user');
 
 /**
  * Creating express application instance
  */
 const app = express();
 
-app.use(express.json());
-app.use(cors());
-
-/**
- * App Routes
- */
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+// @Routes
+require('./routes')(app);
 
 /**
  * Creating express server using http
