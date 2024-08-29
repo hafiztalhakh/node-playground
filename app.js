@@ -6,7 +6,7 @@ const express = require('express');
 const cors = require('cors');
 
 const connectDB = require('./config/db');
-const { registerUser, loginUser } = require('./controllers/user');
+const authRoutes = require('./routes/auth');
 
 /**
  * Creating express application instance
@@ -17,10 +17,9 @@ app.use(express.json());
 app.use(cors());
 
 /**
- * Auth Routes
+ * App Routes
  */
-app.post('/register-user', registerUser);
-app.post('/login', loginUser);
+app.use('/auth', authRoutes);
 
 /**
  * Creating express server using http
