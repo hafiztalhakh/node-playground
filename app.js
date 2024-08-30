@@ -5,6 +5,7 @@ const http = require('http');
 const express = require('express');
 
 const connectDB = require('./config/db');
+const routes = require('./routes');
 
 /**
  * Creating express application instance
@@ -12,7 +13,7 @@ const connectDB = require('./config/db');
 const app = express();
 
 // @Routes
-require('./routes')(app);
+routes(app);
 
 /**
  * Creating express server using http
