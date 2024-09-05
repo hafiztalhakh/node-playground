@@ -1,3 +1,4 @@
 module.exports = {
-  ...require('./auth/generateHash.service'),
+  ...require('./auth/generatePasswordHash.service'),
+  ...require('./auth/registerUser.service'),
 };
