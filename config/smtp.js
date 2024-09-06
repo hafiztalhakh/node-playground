@@ -1,4 +1,4 @@
-export const SMTP_CONFIG = {
+exports.SMTP_CONFIG = {
   service: 'Gmail',
   auth: {
     user: process.env.SMTP_USER,

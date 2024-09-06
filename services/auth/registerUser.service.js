@@ -1,8 +1,8 @@
 const Auth = require('../../models/Auth');
 const User = require('../../models/User');
-const Error = require('../../utils/helpers/errors');
-const { validateEmail, validatePassword } = require('../../utils/validations');
-const { generatePasswordHash } = require('./generatePasswordHash.service');
+const Error = require('../../utils/errorHandler');
+const Validator = require('../../utils/validations');
+const Helpers = require('../../utils/helpers');
 
 /**
  * Method to create a documents in
@@ -14,13 +14,13 @@ async function registerUserService(params) {
     const { email, password, firstName, lastName, phoneNumber } = params;
 
     // Validating email address
-    const isValidEmail = validateEmail(email);
+    const isValidEmail = Validator.validateEmail(email);
     if (!isValidEmail) {
       Error.clientError('Invalid Email Address!');
     }
 
     // Validating password
-    const isValidPassword = validatePassword(password);
+    const isValidPassword = Validator.validatePassword(password);
     if (!isValidPassword) {
       Error.clientError(
         'Invalid Password. Required minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character'
@@ -34,7 +34,7 @@ async function registerUserService(params) {
     }
 
     // Encoding password
-    const encodedPassword = await generatePasswordHash(password);
+    const encodedPassword = await Helpers.generatePasswordHash(password);
 
     // Creating entry in Auth Collection
     const auth = new Auth({

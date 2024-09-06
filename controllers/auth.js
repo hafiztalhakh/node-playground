@@ -1,10 +1,9 @@
-const { registerUserService } = require('../services');
-const { loginService } = require('../services/auth/login.service');
+const Services = require('../services');
 
-async function registerUser(req, res, next) {
+exports.registerUser = async (req, res, next) => {
   try {
     // handling user register service
-    const reponseMessage = await registerUserService(req.body);
+    const reponseMessage = await Services.registerUserService(req.body);
 
     // Returning the response
     res.status(201).json({ message: reponseMessage });
@@ -12,21 +11,28 @@ async function registerUser(req, res, next) {
     // Returning error to next middleware
     next(error);
   }
-}
+};
 
-async function login(req, res, next) {
+exports.login = async (req, res, next) => {
   try {
     // handling user register service
-    const response = await loginService(req.body);
+    const response = await Services.loginService(req.body);
 
     // Returning the response
     res.status(200).json(response);
   } catch (error) {
     next(error);
   }
-}
+};
 
-module.exports = {
-  registerUser,
-  login,
+exports.recoverPassword = async (req, res, next) => {
+  try {
+    // handling user recover password service
+    const responseMessage = await Services.recoverPasswordService(req.body);
+
+    // Returning the response
+    res.status(200).json({ message: responseMessage });
+  } catch (error) {
+    next(error);
+  }
 };
