@@ -29,6 +29,4 @@ async function generateEmailService(email, subject, html) {
   }
 }
 
-module.exports = {
-  generateEmailService,
-};
+module.exports = { generateEmailService };

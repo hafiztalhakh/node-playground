@@ -1,5 +1,5 @@
 const Auth = require('../../models/Auth');
-const Services = require('../');
+const Services = require('../../services');
 const Validator = require('../../utils/validations');
 const Helpers = require('../../utils/helpers');
 
@@ -23,24 +23,12 @@ async function recoverPasswordService(params) {
     auth.resetToken = passwordResetCode;
 
     // Saving recovery code in auth doc
-    await user.save();
+    await auth.save();
 
-    // Shooting email to the registered email address
-    await Services.generateEmailService(
-      email,
-      'Password reset email',
-      `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.
-      \n\n Your verification code is ${passwordResetCode}:\n\n
-      \n\n If you did not request this, please ignore this email and your password will remain unchanged.
-      </p>`
-    );
-
-    return 'Reset Code Has Been Emailed To Your Registered Email Address';
+    return passwordResetCode;
   } catch (error) {
     throw error;
   }
 }
 
-module.exports = {
-  recoverPasswordService,
-};
+module.exports = { recoverPasswordService };

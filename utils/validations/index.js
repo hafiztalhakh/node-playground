@@ -10,9 +10,6 @@ async function validatePassword(password) {
   return PASSWORD_REGEX.test(password);
 }
 
-exports.comparePassword = async (password, confirm_password) =>
-  password === confirm_password;
-
 exports.verifyPassword = async (password_to_comapre, password_base) =>
   await bcrypt.compare(password_to_comapre, password_base);
 
