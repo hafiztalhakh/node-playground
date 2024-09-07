@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs');
-
 const { EMAIL_REGEX, PASSWORD_REGEX } = require('../constants');
 
 async function validateEmail(email) {
@@ -9,9 +7,6 @@ async function validateEmail(email) {
 async function validatePassword(password) {
   return PASSWORD_REGEX.test(password);
 }
-
-exports.verifyPassword = async (password_to_comapre, password_base) =>
-  await bcrypt.compare(password_to_comapre, password_base);
 
 module.exports = {
   validateEmail,

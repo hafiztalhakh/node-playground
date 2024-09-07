@@ -1,4 +1,4 @@
-function clientError(message) {
+function clientError(message = 'Bad request') {
   const error = new Error(message);
   error.statusCode = 400;
   throw error;
@@ -10,7 +10,7 @@ function unauthorized(message) {
   throw error;
 }
 
-function notFound(message) {
+function notFound(message = 'Not found') {
   const error = new Error(message);
   error.statusCode = 404;
   throw error;
@@ -22,7 +22,7 @@ function conflict(message) {
   throw error;
 }
 
-function fail(message) {
+function fail(message = 'Internal server error') {
   const error = new Error(message);
   error.statusCode = 500;
   throw error;

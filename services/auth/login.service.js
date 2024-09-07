@@ -22,11 +22,7 @@ async function loginService(params) {
     }
 
     // Generating new JWT TOKEN for the authenticated user
-    const token = await Helpers.generateToken(
-      auth?.email,
-      auth?.user,
-      process.env.JWT_SECRET
-    );
+    const token = await Helpers.generateToken(auth?.email, auth?.user);
 
     return { token, message: 'Success' };
   } catch (error) {

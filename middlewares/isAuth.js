@@ -1,29 +1,26 @@
-const jwt = require('jsonwebtoken');
+const Helpers = require('../utils/helpers');
+const Error = require('../utils/errorHandler');
 
 module.exports = async (req, res, next) => {
   try {
     const authHeader = req.get('Authorization');
     if (!authHeader) {
-      const error = new Error('Not Authenticated');
-      error.statucCode = 401;
-      throw error;
+      Error.unauthorized('Not Authenticated');
     }
 
     const token = req.get('Authorization').split(' ')[1];
     let decodedToken = '';
     try {
-      decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      decodedToken = Helpers.verifyToken(token);
     } catch (err) {
-      err.statusCode = 500;
-      throw err;
+      Error.fail();
     }
 
     if (!decodedToken) {
-      const error = new Error('Not Authenticated');
-      error.statusCode = 401;
-      throw error;
+      Error.unauthorized('Not Authenticated');
     }
 
+    // if token is valid then attaching userid to the request
     req.userId = decodedToken.userId;
 
     next();
